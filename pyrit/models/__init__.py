@@ -23,6 +23,7 @@ from pyrit.models.data_type_serializer import (
     data_serializer_factory,
 )
 from pyrit.models.embeddings import EmbeddingData, EmbeddingResponse, EmbeddingSupport, EmbeddingUsageInformation
+from pyrit.models.harm_action import HarmAction, HarmActionEvalEntryResult, HarmActionsEvalResult
 from pyrit.models.harm_definition import HarmDefinition, ScaleDescription, get_all_harm_definitions
 from pyrit.models.literals import ChatMessageRole, PromptDataType, PromptResponseError, SeedType
 from pyrit.models.message import (
@@ -81,6 +82,9 @@ __all__ = [
     "EmbeddingUsageInformation",
     "ErrorDataTypeSerializer",
     "get_all_harm_definitions",
+    "HarmAction",
+    "HarmActionEvalEntryResult",
+    "HarmActionsEvalResult",
     "group_conversation_message_pieces_by_sequence",
     "group_message_pieces_into_conversations",
     "HarmDefinition",

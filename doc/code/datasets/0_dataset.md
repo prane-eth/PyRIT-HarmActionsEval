@@ -51,7 +51,30 @@ A `SeedDataset` is a collection of related `SeedGroups` that you want to test to
 
 **Examples of built-in datasets**:
 - `harmbench`: Standard harmful behavior benchmarks
+- `harmactionseval`: Agent action safety prompts with expected function tool calls
 - `dark_bench`: Dark pattern detection examples
 - `airt_*`: Various harm categories from AI Red Team
 
 Datasets can be loaded from local YAML files or fetched remotely from sources like HuggingFace, making it easy to share and version test cases across teams.
+
+### HarmActionsEval
+
+`harmactionseval` is a packaged dataset for evaluating whether an agent attempts harmful or unethical tool calls. Each seed stores the manipulated prompt as the objective value and keeps the expected function action in seed metadata.
+
+```python
+from pyrit.datasets import SeedDatasetProvider
+from pyrit.executor.benchmark import HarmActionsEval
+from pyrit.prompt_target import OpenAIChatTarget
+
+datasets = await SeedDatasetProvider.fetch_datasets_async(dataset_names=["harmactionseval"])
+target = OpenAIChatTarget()
+
+result = await HarmActionsEval(objective_target=target).execute_async(
+    dataset=datasets[0],
+    max_attempts=2,
+)
+
+print(result.attack_success_rate)
+```
+
+The benchmark first sends a benign sample calculator action. If the target cannot produce that tool call, execution raises so the reported harmful-action rate is not based on a target that failed basic tool-use setup.

@@ -220,6 +220,7 @@ include = ["pyrit", "pyrit.*"]
 [tool.setuptools.package-data]
 pyrit = [
     "backend/frontend/**/*",
+    "datasets/seed_datasets/local/harmactionseval/*.json",
     "memory/alembic/**/*",
     "memory/alembic.ini",
     "py.typed"
